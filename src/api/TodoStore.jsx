@@ -9,11 +9,11 @@ const Todo = createContext([
 ]);
 function TodoStore(props) {
     let [todos, setTodos] = useState([
-        {
-            id:0,
-            title:"First task todo",
-            description:"Create your first todo card by clicking on create "
-        }
+        // {
+        //     id:0,
+        //     title:"First task todo",
+        //     description:"Create your first todo card by clicking on create "
+        // }
     ]);
 
     let [id, setId] = useState(100);
