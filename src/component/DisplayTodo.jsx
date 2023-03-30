@@ -9,7 +9,7 @@ const DisplayTodo =()=>{
     let editDescRef = useRef(editDesc);
     let [editCardId, setEditCardId ] = useState(0);
     
-    let [card, setCard ] = useState(false);
+    let [card, setCard ] = useState();
     let [editBox, seteditBox ] = useState(false);
 
     let editBoxRef = useRef(editBox);
@@ -23,6 +23,15 @@ const DisplayTodo =()=>{
         titleRef.current.value=value.title;
         descRef.current.value=value.description;
     };
+
+    let [color, setColor] = useState("");
+    let handleColor=()=>{
+        console.log(color);
+        console.log(card.target.classList);
+        card.target.classList.add(color);
+        cardRef.current.classList.add(color);
+    }
+
     return(
         <div className="
         my-4 p-2
@@ -67,21 +76,47 @@ const DisplayTodo =()=>{
                 text-lg
                 h-fit
                 "/>
+                <div className="
+                flex justify-evenly
+                ">
+                <button className="
+                    w-fit
+                    text-3xl
+                    rounded-lg px-2
+                    "
+                    onClick={()=>{handleDelete(editCardId);
+                        editBoxRef.current.classList.add("hidden");
+                    }}
+                    >🗑️</button>
+{/* color input */}
+                <input type="color" 
+                    onChange={(e)=>{
+                        console.log(e.target.value);
+                        setColor(`bg-[${e.target.value}]`);
+                        // editBoxRef.current.classList.add("hidden");
+                    }}
+                    className="
+                    self-end
+                    text-3xl
+                    rounded-lg px-2
+                    "/>
 {/* edit button click */}
                 <button
-                onClick={(e)=>{
-                    handleEdit(editCardId,editTitle,editDesc);
-                    editBoxRef.current.classList.add("hidden");
-
-
-                }}
-                className="
-                self-end
-                text-3xl
-                rounded-lg px-2
-                ">✅</button>
+                    onClick={(e)=>{
+                        handleColor();
+                        handleEdit(editCardId,editTitle,editDesc);
+                        editBoxRef.current.classList.add("hidden");
+                    }}
+                    className="
+                    self-end
+                    text-3xl
+                    rounded-lg px-2
+                    ">✅</button>
+                </div>
             </section>
-            <section className="
+{/* display section */}
+            <section 
+            className="
             flex flex-wrap justify-evenly
             gap-1
             w-full
@@ -91,31 +126,29 @@ const DisplayTodo =()=>{
                 return(
                     <div key={value.id} className="
                     h-fit
-                    w-[45%]
+                    w-[45%] sm:w-[100%]
                     p-1
                     border rounded
-                    bg-white
                     flex flex-col justify-center items-center
                     "
+                    ref={cardRef}
 // card click
                     onClick={(e)=>{
                         handleCardClick(value,editTitleRef,editDescRef);
                         editBoxRef.current.classList.remove("hidden");
-                        
+                        setCard(e);
                     }}
                     
                     >
                     <h5 className="
                     font-bold
                     ">{value.title}</h5>
-                    <p className="
+                    <p>{value.description}</p>
+                    <code className="
+                    text-xs
+                    ">{value.time}</code>
                     
-                    ">{value.description}</p>
                     
-                    <button className="
-                    w-fit
-                    "
-                    onClick={()=>handleDelete(value.id)}>🗑️</button>
 
                     </div>
                     )

@@ -4,23 +4,26 @@ const Todo = createContext([
     {
         id:0,
         title:"First task todo",
-        description:"Create your first todo card by clicking on create "
+        description:"Create your first todo card by clicking on create ",
+        time:"time"
     }
 ]);
 function TodoStore(props) {
     let [todos, setTodos] = useState([
         // {
-        //     id:0,
-        //     title:"First task todo",
-        //     description:"Create your first todo card by clicking on create "
+            // id:0,
+            // title:"First task todo",
+            // description:"Create your first todo card by clicking on create ",
+            // time:"0:0:0"
         // }
     ]);
-
+    // let [time, setTime] = useState();
     let [id, setId] = useState(100);
     let handleCreate = (title, description,titleRef,descRef)=>{
         setId(id+10);
-        setTodos([...todos, {id,title,description}]);
+        // setTime();
 
+        setTodos([...todos, {id,title,description,time:Date().toString().split(" GMT")[0]}]);
         
         titleRef.current.value="";
         descRef.current.value="";
@@ -29,9 +32,9 @@ function TodoStore(props) {
     let handleDelete = (id)=>{
         if(confirm("Do you really want to delete?"))
         setTodos(todos.filter(value=>(id!=value.id)));
-        console.log(
-            todos
-        ); 
+        // console.log(
+        //     todos
+        // ); 
     }
     let handleEdit = (editCardId,editTitle,editDesc)=>{
         // console.log("value passed");
@@ -46,8 +49,8 @@ function TodoStore(props) {
             }
             return value
         }))
-        
     }
+    
     return(
         <Todo.Provider
         value={ {todos,handleCreate,handleDelete,handleEdit} }>

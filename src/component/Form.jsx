@@ -5,17 +5,19 @@ const Form =()=>{
     let data = useContext(Todo);
     let [title, setTitle] = useState("");
     let [description, setDescription] = useState("");
-   
+    
+    if (title == "" && description == "") {
+        setDescription("Empty Note")
+        setTitle("No Title");
+    }
     const handleSubmit = (e)=>{
         e.preventDefault();
         // console.log("form submit");
         // console.log("title :"+title);
         // console.log("desc :"+description);
         data.handleCreate(title,description,titleRef,descRef);
-        
+        setDescription("")
         setTitle("");
-        setDescription("Empty Note");
-        
     };
 // refs
     let titleRef = useRef(title);
