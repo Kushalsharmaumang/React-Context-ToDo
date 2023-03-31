@@ -13,7 +13,6 @@ const DisplayTodo =()=>{
     let [editBox, seteditBox ] = useState(false);
 
     let editBoxRef = useRef(editBox);
-    let cardRef = useRef(card);
     
     let handleCardClick =(value,titleRef,descRef)=>{
         // console.log(value);
@@ -23,13 +22,11 @@ const DisplayTodo =()=>{
         titleRef.current.value=value.title;
         descRef.current.value=value.description;
     };
-
-    let [color, setColor] = useState("");
-    let handleColor=()=>{
-        console.log(color);
-        console.log(card.target.classList);
-        card.target.classList.add(color);
-        cardRef.current.classList.add(color);
+    let handelColor =()=>{
+        card.target.classList.remove("bg-white-100")
+        card.target.classList.remove("bg-red-100")
+        card.target.classList.remove("bg-yellow-100")
+        card.target.classList.remove("bg-green-100")
     }
 
     return(
@@ -81,7 +78,8 @@ const DisplayTodo =()=>{
                 ">
                 <button className="
                     w-fit
-                    text-3xl
+                    text-xl
+                    sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl
                     rounded-lg px-2
                     "
                     onClick={()=>{handleDelete(editCardId);
@@ -89,27 +87,60 @@ const DisplayTodo =()=>{
                     }}
                     >🗑️</button>
 {/* color input */}
-                <input type="color" 
-                    onChange={(e)=>{
-                        console.log(e.target.value);
-                        setColor(`bg-[${e.target.value}]`);
-                        // editBoxRef.current.classList.add("hidden");
+                <button
+                    onClick={()=>{
+                        handelColor();
+                        card.target.classList.add("bg-white-100");
+                        editBoxRef.current.classList.add("hidden");
                     }}
                     className="
-                    self-end
-                    text-3xl
-                    rounded-lg px-2
-                    "/>
+                    w-9 h-9
+                    border rounded-full px-2
+                    bg-white-100
+                    "></button>
+                <button
+                    onClick={()=>{
+                        handelColor();
+                        card.target.classList.add("bg-red-100");
+                        editBoxRef.current.classList.add("hidden");
+                    }}
+                    className="
+                    w-9 h-9
+                    border rounded-full px-2
+                    bg-red-100
+                    "></button>
+                <button
+                    onClick={()=>{
+                        handelColor();
+                        card.target.classList.add("bg-yellow-100");
+                        editBoxRef.current.classList.add("hidden");
+                    }}
+                    className="
+                    w-9 h-9
+                    border rounded-full px-2
+                    bg-yellow-100
+                    "></button>
+                <button
+                    onClick={()=>{
+                        handelColor();
+                        card.target.classList.add("bg-green-100");
+                        editBoxRef.current.classList.add("hidden");
+                    }}
+                    className="
+                    w-9 h-9
+                    border rounded-full px-2
+                    bg-green-100
+                    "></button>
 {/* edit button click */}
                 <button
                     onClick={(e)=>{
-                        handleColor();
                         handleEdit(editCardId,editTitle,editDesc);
                         editBoxRef.current.classList.add("hidden");
                     }}
                     className="
                     self-end
-                    text-3xl
+                    text-xl
+                    sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl
                     rounded-lg px-2
                     ">✅</button>
                 </div>
@@ -126,17 +157,18 @@ const DisplayTodo =()=>{
                 return(
                     <div key={value.id} className="
                     h-fit
-                    w-[45%] sm:w-[100%]
+                    w-[100%]
+                    sm:w-[100%] md:w-[45%] lg:w-[45%] xl:w-[45%] 
                     p-1
                     border rounded
                     flex flex-col justify-center items-center
                     "
-                    ref={cardRef}
 // card click
                     onClick={(e)=>{
                         handleCardClick(value,editTitleRef,editDescRef);
                         editBoxRef.current.classList.remove("hidden");
                         setCard(e);
+                        console.log(card.target.classList);
                     }}
                     
                     >
